@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     telegram_bot_token: str = ""
     telegram_chat_id: str = ""
 
+    site_url: str = "http://localhost:8000"
+    site_name: str = "NEXUS"
+
     # Scheduler
     morning_briefing_time: str = "09:00"
     evening_summary_time: str = "18:30"

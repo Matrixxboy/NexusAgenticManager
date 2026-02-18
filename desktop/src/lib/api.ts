@@ -113,12 +113,15 @@ export const createProject = (data: {
     body: JSON.stringify(data),
   })
 
+export const deleteProject = (projectId: string) =>
+  req<any>(`/projects/${projectId}`, { method: "DELETE" })
+
 // 🔹 Tasks
 
-export const getTasks = (projectId: number) => req<any[]>(`/tasks/${projectId}`)
+export const getTasks = (projectId: string) => req<any[]>(`/tasks/${projectId}`)
 
 export const createTask = (data: {
-  project_id: number
+  project_id: string
   title: string
   description?: string
   priority?: string
@@ -128,8 +131,20 @@ export const createTask = (data: {
     body: JSON.stringify(data),
   })
 
-export const updateTaskStatus = (taskId: number, status: string) =>
+export const updateTaskStatus = (taskId: string, status: string) =>
   req<any>(`/tasks/${taskId}/status?status=${status}`, { method: "PATCH" })
+
+export const updateTask = (
+  taskId: string,
+  data: { title?: string; description?: string; priority?: string },
+) =>
+  req<any>(`/tasks/${taskId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  })
+
+export const deleteTask = (taskId: string) =>
+  req<any>(`/tasks/${taskId}`, { method: "DELETE" })
 
 // 🔹 Research (ORACLE)
 

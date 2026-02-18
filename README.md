@@ -35,3 +35,14 @@ npm run tauri dev
 - **Phase 2** (Weeks 3-4): ATLAS PM Agent
 - **Phase 3** (Weeks 5-6): ORACLE Research + RAG Memory
 - **Phase 4** (Weeks 7-10): COMPASS + FORGE + Integrations
+
+
+```python
+>>> from fastapi import APIRouter
+>>> router = APIRouter()
+>>> @router.get('/health', response_model=bool)
+... def health_check():
+... return {'status': True}
+>>> resp = requests.get('http://localhost:8000/health')
+>>> print(resp.json()) # {'status': True}
+```
