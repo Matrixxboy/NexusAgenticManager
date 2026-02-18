@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Node / Tauri
+node_modules/
+.next/
+out/
+desktop/dist/
+desktop/src-tauri/target/
+
+# DB & storage
+*.db
+*.sqlite
+chroma_db/
+*.log
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+secrets/

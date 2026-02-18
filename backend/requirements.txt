@@ -1,0 +1,35 @@
+# API Framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+pydantic-settings==2.6.1
+python-dotenv==1.0.1
+python-multipart==0.0.18
+
+# Agent Framework
+langgraph==0.2.59
+langchain==0.3.12
+langchain-community==0.3.12
+langchain-ollama==0.2.1
+langchain-anthropic==0.3.0
+
+# Memory / Vector
+# Memory / Vector
+chromadb==0.5.23
+sentence-transformers==3.3.1
+motor==3.3.2
+beanie==1.25.0
+
+# Integrations
+httpx==0.28.0
+PyGithub==2.5.0
+notion-client==2.3.0
+python-telegram-bot==21.9
+
+# Scheduler
+apscheduler==3.10.4
+
+# Utilities
+loguru==0.7.3
+rich==13.9.4
+tiktoken==0.8.0
