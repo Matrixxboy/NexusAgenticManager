@@ -261,7 +261,7 @@ class ATLASAgent(BaseAgent):
         
         try:
             import json
-            from mcp.registry import MCPRegistry
+            from mcp import MCPRegistry
             
             # handle potential markdown code blocks
             clean_json = json_resp.replace("```json", "").replace("```", "").strip()
@@ -328,7 +328,7 @@ class ATLASAgent(BaseAgent):
         
         try:
             import json
-            from mcp.registry import MCPRegistry
+            from mcp import MCPRegistry
             
             data = json.loads(json_resp)
             if isinstance(data, list):
@@ -379,7 +379,7 @@ class ATLASAgent(BaseAgent):
         
         try:
             import json
-            from mcp.registry import MCPRegistry
+            from mcp import MCPRegistry
             
             data = json.loads(json_resp)
             project_name = data.get("name")
@@ -407,7 +407,7 @@ class ATLASAgent(BaseAgent):
         
         try:
             import json
-            from mcp.registry import MCPRegistry
+            from mcp import MCPRegistry
             
             data = json.loads(json_resp)
             

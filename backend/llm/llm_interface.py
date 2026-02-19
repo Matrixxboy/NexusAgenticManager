@@ -28,6 +28,11 @@ async def llm_call(
 
     logger.debug(f"LLM call → {target.upper()} | tokens={info['token_count']} | task={task_type}")
 
+    # Fallback Logic: if Cloud requested but not configured, switch to Local
+    if target == "cloud" and not openrouter_client.is_configured():
+        logger.warning("OpenRouter API not configured. Fallback to LOCAL (Ollama).")
+        target = "local"
+
     response = ""
     if target == "local":
         available = await ollama_client.is_available()
@@ -39,6 +44,7 @@ async def llm_call(
 
     if target == "cloud":
         if not openrouter_client.is_configured():
+             # Check again in case we fell back from local -> cloud (unlikely loop dependent on avail)
             raise RuntimeError("OpenRouter API not configured. Set OPENROUTER_API_KEY in .env")
         
         # Select model based on task type
@@ -57,7 +63,18 @@ async def llm_call(
             model_id = settings.model_budget
         
         logger.debug(f"OpenRouter Call: {model_id or 'default'} | task={task_type}")
-        response = await openrouter_client.chat(prompt, system, model=model_id)
+        try:
+            response = await openrouter_client.chat(prompt, system, model=model_id)
+        except Exception as e:
+            error_msg = str(e).lower()
+            # Catch Auth errors (401), Permission (403), or Rate limit (429) if we want
+            if "401" in error_msg or "unauthorized" in error_msg or "user not found" in error_msg:
+                logger.warning(f"OpenRouter Auth Failed ({e}). Falling back to LOCAL (Ollama).")
+                # Fallback
+                response = await ollama_client.chat(prompt, system)
+            else:
+                raise e # Re-raise other errors
+
     
     # Strip <think> tags if present (common in reasoning models)
     import re

@@ -365,13 +365,16 @@ class OrchestratorAgent(BaseAgent):
             description="Master orchestrator — routes to 5 specialized agents"
         )
         # Register MCP components
+        from mcp.modules import ProjectsContext, TimeContext
+        # MCPRegistry is likely imported at top, but if not:
+        from mcp import MCPRegistry
+
         MCPRegistry.register_module(ProjectsContext())
         MCPRegistry.register_module(TimeContext())
         MCPRegistry.register_model(NexusModelContext())
         
         # Register MCP Tools
-        from mcp.tools.projects import ProjectsTool
-        from mcp.tools.tasks import TasksTool
+        from mcp.tools import ProjectsTool, TasksTool
         
         MCPRegistry.register_tool(ProjectsTool())
         MCPRegistry.register_tool(TasksTool())

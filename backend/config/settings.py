@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     ollama_model: str = "llama3.1"
 
     # LLM - Cloud
-    openrouter_api_key: str = "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"
+    openrouter_api_key: str = ""
     claude_model: str = "anthropic/claude-3-haiku" # Default main model
     
     # specialized models
