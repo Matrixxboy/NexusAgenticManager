@@ -2,7 +2,7 @@
 import uuid
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Any
 from agents.orchestrator import orchestrator
 from protogrid import make_response
 
@@ -21,10 +21,10 @@ class ChatResponse(BaseModel):
     success: bool
     message: str
     http_code: int
-    payload: ChatPayload
-    error: Optional[dict] = None
-    meta: Optional[dict] = None
-    pagination: Optional[dict] = None
+    payload: Optional[ChatPayload] = None
+    error: Optional[Any] = None
+    meta: Optional[Any] = None
+    pagination: Optional[Any] = None
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):

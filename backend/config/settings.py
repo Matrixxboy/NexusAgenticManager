@@ -9,20 +9,21 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     secret_key: str = "change-me"
 
+    person_name: str = "Utsav Lankapati"
     # LLM - Local
     ollama_base_url: str = "http://localhost:11434"
-    ollama_model: str = "llama2-uncensored:7b"
+    ollama_model: str = "llama3.1"
 
     # LLM - Cloud
-    openrouter_api_key: str = ""
-    claude_model: str = "anthropic/claude-3.5-sonnet" # Default main model
+    openrouter_api_key: str = "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"
+    claude_model: str = "anthropic/claude-3-haiku" # Default main model
     
     # specialized models
-    model_reasoning: str = "anthropic/claude-3-opus"
-    model_coding: str = "minimax/minimax-01"
-    model_long_context: str = "google/gemini-pro-1.5"
-    model_creative: str = "x-ai/grok-2"
-    model_budget: str = "deepseek/deepseek-chat"
+    model_reasoning: str = "anthropic/claude-3-haiku"
+    model_coding: str = "deepseek/deepseek-v3.1-terminus"
+    model_long_context: str = "google/gemini-1.5-pro"
+    model_creative: str = "tngtech/deepseek-r1t2-chimera"
+    model_budget: str = "deepseek/deepseek-v3.2-speciale"
 
     # Router
     local_token_threshold: int = 2000

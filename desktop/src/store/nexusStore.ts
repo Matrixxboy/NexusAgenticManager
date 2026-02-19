@@ -9,6 +9,7 @@ export type View =
   | "code"
   | "settings"
   | "telegram"
+  | "profile"
 
 export interface Message {
   id: string

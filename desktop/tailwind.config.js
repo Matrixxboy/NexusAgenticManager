@@ -4,30 +4,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg:       "#070810",
-        surface:  "#10111f",
-        surface2: "#14152a",
-        surface3: "#1a1b33",
-        accent:   "#6366f1",
-        cyan:     "#22d3ee",
-        amber:    "#f59e0b",
-        emerald:  "#10b981",
-        rose:     "#f43f5e",
-        text:     "#e2e4f0",
-        "text-mid": "#9496b0",
-        "text-dim": "#4a4c6a",
+        bg: "#F8F5FA",
+        surface: "#FFFFFF",
+        surface2: "#F3EEF6",
+        surface3: "#DCD0E6",
+        accent: "#6D5A7D",
+        cyan: "#8E8098",
+        amber: "#B8A3C9",
+        emerald: "#869D92",
+        rose: "#BC7C84",
+        text: "#2E2532",
+        "text-mid": "#655C6B",
+        "text-dim": "#9C94A3",
       },
       fontFamily: {
-        mono:    ["'JetBrains Mono'", "monospace"],
+        mono: ["'JetBrains Mono'", "monospace"],
         display: ["'Rajdhani'", "sans-serif"],
-        body:    ["'Outfit'", "sans-serif"],
+        body: ["'Outfit'", "sans-serif"],
       },
       animation: {
         "pulse-slow": "pulseDot 2.5s ease-in-out infinite",
-        "spin-slow":  "spinSlow 8s linear infinite",
-        "fade-up":    "fadeUp 0.4s ease forwards",
+        "spin-slow": "spinSlow 8s linear infinite",
+        "fade-up": "fadeUp 0.4s ease forwards",
       },
     },
   },
   plugins: [],
-};
+}
+

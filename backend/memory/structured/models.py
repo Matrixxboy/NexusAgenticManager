@@ -92,3 +92,15 @@ class CareerGoal(Document):
 
     class Settings:
         name = "career_goals"
+
+class Profile(Document):
+    name: str = "User"
+    role: str = "Developer"
+    bio: str = ""
+    api_keys: dict = {}  # { "openai": "sk-...", "anthropic": "sk-..." }
+    preferences: dict = {}  # { "theme": "dark", "notifications": true }
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+    class Settings:
+        name = "profile"

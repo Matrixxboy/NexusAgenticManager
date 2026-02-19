@@ -2,7 +2,7 @@
 name = "nexus"
 version = "1.0.0"
 description = "NEXUS — Personal Agentic AI OS"
-authors = ["Utsav Desai"]
+authors = ["Utsav Lankapati"]
 edition = "2021"
 
 [lib]

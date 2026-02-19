@@ -268,3 +268,19 @@ export const getTelegramUpdates = async (token: string) => {
   return res.json()
 }
 
+// 🔹 Profile
+
+export const getProfile = () => req<any>("/profile")
+
+export const updateProfile = (data: {
+  name?: string
+  role?: string
+  bio?: string
+  api_keys?: Record<string, string>
+  preferences?: Record<string, any>
+}) =>
+  req<any>("/profile", {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+

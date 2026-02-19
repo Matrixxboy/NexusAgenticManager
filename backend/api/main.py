@@ -8,7 +8,7 @@ from loguru import logger
 from config import settings
 from core.logger import setup_logger
 from memory.structured.database import init_db
-from api.routes import chat, projects, tasks, health, research, agents, sessions
+from api.routes import chat, projects, tasks, health, research, agents, sessions, profile
 
 setup_logger(settings.log_level)
 os.makedirs("logs", exist_ok=True)
@@ -31,7 +31,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:1420", "tauri://localhost", "http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,3 +47,4 @@ app.include_router(sessions.router,  prefix="/api", tags=["sessions"])
 # Agent-specific routes
 app.include_router(research.router,  prefix="/api", tags=["oracle-research"])
 app.include_router(agents.router,    prefix="/api", tags=["compass-career", "forge-code"])
+app.include_router(profile.router,   prefix="/api", tags=["profile"])

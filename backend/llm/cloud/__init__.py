@@ -1,2 +1,2 @@
-from .claude_client import ClaudeClient, claude_client
-__all__ = ["ClaudeClient", "claude_client"]
+from .openrouter_client import OpenRouterClient, openrouter_client
+__all__ = ["OpenRouterClient", "openrouter_client"]

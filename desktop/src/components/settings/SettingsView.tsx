@@ -771,7 +771,7 @@ export default function SettingsView() {
                   NEURAL EXECUTION & UNDERSTANDING SYSTEM
                 </div>
                 <div className="mono-label" style={{ marginTop: "4px" }}>
-                  VERSION 2.0.0 · BUILT FOR UTSAV DESAI
+                  VERSION 2.0.0 · BUILT FOR Utsav Lankapati
                 </div>
               </div>
               <div

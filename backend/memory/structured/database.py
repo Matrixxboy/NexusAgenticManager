@@ -3,7 +3,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from config import settings
 from loguru import logger
-from .models import Project, Task, Session, DailyLog, KnowledgeEntry, CareerGoal
+from .models import Project, Task, Session, DailyLog, KnowledgeEntry, CareerGoal, Profile
 
 async def init_db():
     """Initialize Beanie ODM with MongoDB."""
@@ -16,7 +16,8 @@ async def init_db():
             Session,
             DailyLog,
             KnowledgeEntry,
-            CareerGoal
+            CareerGoal,
+            Profile
         ],
     )
     logger.info(f"✅ MongoDB initialized: {settings.mongo_db_name}")

@@ -28,7 +28,7 @@ def route(prompt: str, task_type: str = "general") -> LLMTarget:
     # Rule 1: task type override
     # Extended list of cloud-mandatory tasks
     cloud_mandatory = settings.cloud_task_types + [
-        "deep_reasoning", "coding", "long_context", "creative", "budget"
+        "deep_reasoning", "coding", "long_context", "creative", "budget", "routing"
     ]
     
     if task_type in cloud_mandatory:

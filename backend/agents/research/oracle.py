@@ -8,8 +8,11 @@ from loguru import logger
 from core.base_agent import BaseAgent
 from llm import llm_call
 from memory.vector.chroma_store import ChromaStore
+from config.settings import settings
 
-ORACLE_SYSTEM = """You are ORACLE, the Research Agent inside NEXUS — built for Utsav, an AI/ML engineer.
+person = settings.person_name
+from datetime import datetime
+ORACLE_SYSTEM = """You are ORACLE, the Research Agent inside NEXUS — built for {person}, an AI/ML engineer.
 
 Your expertise:
 - AI/ML, Computer Vision, Deep Learning, NLP
@@ -18,18 +21,19 @@ Your expertise:
 - Scientific papers and technical documentation
 
 Your job:
-- Answer questions using Utsav's personal knowledge base first (RAG)
+- Answer questions using {person}'s personal knowledge base first (RAG)
 - Summarize papers and technical content sharply — no fluff
 - Build structured learning paths when asked
 - Always cite sources when using retrieved context
 - Format: use bullet points, code blocks where relevant, be dense not verbose
+- {person}'s active research areas: {research_areas}
 
-Utsav's active research areas:
-- Palm reading AI (OpenCV, MediaPipe, Grad-CAM, segmentation)
-- Local LLM systems (Ollama, quantization, RAG)
-- Vedic Astrology computation (Swiss Ephemeris, Dasha systems)
-- Voice cloning (TTS, speaker embeddings)
-- Computer Vision (segmentation, classification pipelines)"""
+Thinking Process:
+1. Break down the user's research query into key technical concepts.
+2. Retrieve relevant context from RAG (if valid).
+3. Synthesize external knowledge + RAG context + internal expertise.
+4. Structure the final answer with headers and code.
+"""
 
 SUMMARY_PROMPT = """Summarize this content for a technical AI/ML engineer.
 Be sharp and structured. Extract:
@@ -45,7 +49,7 @@ Source: {source}"""
 
 LEARNING_PATH_PROMPT = """Create a structured learning path for: {topic}
 
-Utsav's background: Diploma in Computer Engineering, working AI/ML engineer,
+{person}'s background: Diploma in Computer Engineering, working AI/ML engineer,
 strong in Python, OpenCV, basic ML. Wants PhD-level depth eventually.
 
 Format:
@@ -101,8 +105,19 @@ class OracleAgent(BaseAgent):
         retrieved = await self.store.search(question, n_results=5)
         context_text = self._format_retrieved(retrieved)
 
+
+        
+        # Time Context
+        time_context = f"\nCurrent Date/Time: {datetime.now().strftime('%A, %B %d, %Y')}\n"
+
+        # Format System Prompt
+        # In a real app, research areas might come from DB. For now, we infer from projects.
+        db_context = await self.get_db_context()
+        projects_text = db_context.get("projects", "No active projects.")
+        system_prompt = ORACLE_SYSTEM.format(research_areas=projects_text, person=person) + time_context
+
         prompt = SEARCH_PROMPT.format(query=question, context=context_text)
-        response = await llm_call(prompt, system=ORACLE_SYSTEM, task_type="research_heavy")
+        response = await llm_call(prompt, system=system_prompt, task_type="research_heavy")
 
         return {
             "output": response,
@@ -149,7 +164,13 @@ class OracleAgent(BaseAgent):
     async def summarize_content(self, content: str, source: str) -> Dict[str, Any]:
         """Summarize external content and optionally ingest it."""
         prompt = SUMMARY_PROMPT.format(content=content[:6000], source=source)
-        summary = await llm_call(prompt, system=ORACLE_SYSTEM, task_type="research_heavy")
+        
+        # Dynamic System Prompt
+        db_context = await self.get_db_context()
+        projects_text = db_context.get("projects", "No active projects.")
+        system_prompt = ORACLE_SYSTEM.format(research_areas=projects_text, person=person)
+        
+        summary = await llm_call(prompt, system=system_prompt, task_type="research_heavy")
         return {
             "output": summary,
             "agent": "ORACLE",
@@ -159,7 +180,13 @@ class OracleAgent(BaseAgent):
     async def build_learning_path(self, topic: str) -> Dict[str, Any]:
         """Generate a structured learning path for a topic."""
         prompt = LEARNING_PATH_PROMPT.format(topic=topic)
-        path = await llm_call(prompt, system=ORACLE_SYSTEM, task_type="research_heavy")
+        
+        # Dynamic System Prompt
+        db_context = await self.get_db_context()
+        projects_text = db_context.get("projects", "No active projects.")
+        system_prompt = ORACLE_SYSTEM.format(research_areas=projects_text, person=person)
+
+        path = await llm_call(prompt, system=system_prompt, task_type="research_heavy")
         return {
             "output": path,
             "agent": "ORACLE",
@@ -173,8 +200,8 @@ class OracleAgent(BaseAgent):
         if not recent:
             return "No new entries in knowledge base this week."
         titles = "\n".join([f"- {r['metadata'].get('title', 'Untitled')}" for r in recent])
-        prompt = f"Create a brief weekly digest of these knowledge base entries:\n{titles}\n\nHighlight patterns, connections, and what Utsav should explore next."
-        return await llm_call(prompt, system=ORACLE_SYSTEM)
+        prompt = f"Create a brief weekly digest of these knowledge base entries:\n{titles}\n\nHighlight patterns, connections, and what {person} should explore next."
+        return await llm_call(prompt, system=ORACLE_SYSTEM.format(research_areas="General AI", person=person))
 
     def _format_retrieved(self, results: List[Dict]) -> str:
         if not results:
