@@ -5,35 +5,35 @@
 @tailwind utilities;
 
 :root {
-  /* Muted Purple Theme - Light Mode */
-  --bg: #f8f5fa; /* Very Light Purple White */
-  --bg2: #efeaf5; /* Pale Purple */
-  --surface: #ffffff; /* Pure White */
-  --surface2: #f3eef6; /* Off-White Purple */
-  --surface3: #dcd0e6; /* Light Purple structure */
+  /* Nexus Obsidian Theme - Dark Mode */
+  --bg: #09090b; /* Rich Black (Zinc 950) */
+  --bg2: #18181b; /* Zinc 900 */
+  --surface: #18181b; /* Zinc 900 */
+  --surface2: #27272a; /* Zinc 800 */
+  --surface3: #3f3f46; /* Zinc 700 */
 
-  --border: rgba(109, 90, 125, 0.2);
-  --border2: rgba(109, 90, 125, 0.4);
+  --border: #27272a; /* Zinc 800 */
+  --border2: #3f3f46; /* Zinc 700 */
 
-  --accent: #6d5a7d; /* Dark Dull Purple */
-  --accent-lo: rgba(109, 90, 125, 0.1);
-  --accent-glow: rgba(109, 90, 125, 0.25);
+  --accent: #8b5cf6; /* Violet 500 */
+  --accent-lo: rgba(139, 92, 246, 0.1);
+  --accent-glow: rgba(139, 92, 246, 0.4);
 
-  --cyan: #8e8098; /* Muted Grey-Purple */
-  --cyan-lo: rgba(142, 128, 152, 0.1);
+  --cyan: #06b6d4; /* Cyan 500 */
+  --cyan-lo: rgba(6, 182, 212, 0.1);
 
-  --amber: #b8a3c9; /* Soft Light Purple */
-  --amber-lo: rgba(184, 163, 201, 0.15);
+  --amber: #f59e0b; /* Amber 500 */
+  --amber-lo: rgba(245, 158, 11, 0.1);
 
-  --emerald: #869d92; /* Muted Green (complimentary) */
-  --emerald-lo: rgba(134, 157, 146, 0.15);
+  --emerald: #10b981; /* Emerald 500 */
+  --emerald-lo: rgba(16, 185, 129, 0.1);
 
-  --rose: #bc7c84; /* Muted Rose */
-  --rose-lo: rgba(188, 124, 132, 0.15);
+  --rose: #f43f5e; /* Rose 500 */
+  --rose-lo: rgba(244, 63, 94, 0.1);
 
-  --text: #1a151e; /* Darker Purple Grey for contrast */
-  --text-mid: #4a4250; /* Darker Mid */
-  --text-dim: #7d7385; /* Darker Dim */
+  --text: #e4e4e7; /* Zinc 200 (Primary) */
+  --text-mid: #a1a1aa; /* Zinc 400 (Secondary) */
+  --text-dim: #71717a; /* Zinc 500 (Tertiary) */
 
   --font-display: "Rajdhani", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -75,7 +75,7 @@ body,
 
 /* 1. Graphy Dark (Sidebar/Contrast) */
 .texture-graphy-dark {
-  background-color: var(--surface);
+  background-color: var(--surface2); /* Slightly lighter than main bg */
   position: relative;
 }
 .texture-graphy-dark::before {
@@ -86,9 +86,12 @@ body,
   width: 100%;
   height: 100%;
   background-image: url("https://www.transparenttextures.com/patterns/graphy.png");
-  opacity: 0.15; /* Subtle */
+  opacity: 0.05; /* Very subtle on dark */
   pointer-events: none;
   z-index: 0;
+  filter: invert(
+    1
+  ); /* Invert texture for dark mode if needed, or keep black on dark */
 }
 
 /* 2. Graphy (Main Content) */
@@ -104,9 +107,10 @@ body,
   width: 100%;
   height: 100%;
   background-image: url("https://www.transparenttextures.com/patterns/graphy.png");
-  opacity: 0.3; /* Adjusted for readability */
+  opacity: 0.07; /* Subtle */
   pointer-events: none;
   z-index: 0;
+  filter: invert(1); /* Make texture white-ish on dark bg */
 }
 
 /* 3. Wet Snow */

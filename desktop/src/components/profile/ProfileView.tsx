@@ -118,14 +118,21 @@ export default function ProfileView() {
               Identity
             </h2>
 
-            <div className="bg-white p-6 rounded-lg border border-border space-y-4">
+            <div
+              className="p-6 rounded-lg border border-border space-y-4"
+              style={{ background: "var(--surface2)" }}
+            >
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="mono-label">DISPLAY NAME</label>
                   <input
                     value={profile.name}
                     onChange={(e) => handleChange("name", e.target.value)}
-                    className="w-full p-2 text-black bg-surface border border-border rounded text-sm font-mono focus:border-accent outline-none"
+                    className="w-full p-2 border border-border rounded text-sm font-mono focus:border-accent outline-none"
+                    style={{
+                      background: "var(--surface)",
+                      color: "var(--text)",
+                    }}
                     placeholder="Your Name"
                   />
                 </div>
@@ -135,7 +142,11 @@ export default function ProfileView() {
                   <input
                     value={profile.role}
                     onChange={(e) => handleChange("role", e.target.value)}
-                    className="w-full p-2 text-black bg-surface border border-border rounded text-sm font-mono focus:border-accent outline-none"
+                    className="w-full p-2 border border-border rounded text-sm font-mono focus:border-accent outline-none"
+                    style={{
+                      background: "var(--surface)",
+                      color: "var(--text)",
+                    }}
                     placeholder="e.g. AI Engineer"
                   />
                 </div>
@@ -146,7 +157,8 @@ export default function ProfileView() {
                 <textarea
                   value={profile.bio}
                   onChange={(e) => handleChange("bio", e.target.value)}
-                  className="w-full p-3 text-black bg-surface border border-border rounded text-sm font-mono focus:border-accent outline-none h-24 resize-none"
+                  className="w-full p-3 border border-border rounded text-sm font-mono focus:border-accent outline-none h-24 resize-none"
+                  style={{ background: "var(--surface)", color: "var(--text)" }}
                   placeholder="Short bio for agent context..."
                 />
                 <p className="text-xs text-dim">
@@ -162,12 +174,15 @@ export default function ProfileView() {
               <h2 className="text-lg font-bold font-display text-accent">
                 API Keys
               </h2>
-              <span className="text-xs bg-surface3 text-black px-2 py-0.5 rounded">
+              <span className="text-xs bg-surface3 text-text px-2 py-0.5 rounded">
                 Stored Securely
               </span>
             </div>
 
-            <div className="bg-white p-6 rounded-lg border border-border space-y-4">
+            <div
+              className="p-6 rounded-lg border border-border space-y-4"
+              style={{ background: "var(--surface2)" }}
+            >
               {API_KEY_FIELDS.map((item) => (
                 <div key={item.key} className="space-y-2">
                   <label className="mono-label">{item.label}</label>
@@ -179,14 +194,18 @@ export default function ProfileView() {
                       onChange={(e) =>
                         handleKeyChange(item.key, e.target.value)
                       }
-                      className="w-full p-2 text-black bg-surface border border-border rounded text-sm font-mono focus:border-accent outline-none pr-16"
+                      className="w-full p-2 border border-border rounded text-sm font-mono focus:border-accent outline-none pr-16"
+                      style={{
+                        background: "var(--surface)",
+                        color: "var(--text)",
+                      }}
                       placeholder="••••••••"
                     />
 
                     {profile.api_keys?.[item.key] && (
                       <button
                         onClick={() => handleKeyChange(item.key, "")}
-                        className="absolute right-3 top-2 text-red-500 text-xs"
+                        className="absolute right-3 top-2 text-rose-500 text-xs"
                       >
                         Remove
                       </button>

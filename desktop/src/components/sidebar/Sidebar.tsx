@@ -170,7 +170,7 @@ export default function Sidebar() {
         alignItems: isExpanded ? "stretch" : "center",
         padding: "16px 0",
         gap: "6px",
-        background: "var(--surface)",
+        background: "var(--surface2)", // Slightly lighter than bg
         borderRight: "1px solid var(--border)",
         flexShrink: 0,
         zIndex: 100,
